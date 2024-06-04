@@ -1,20 +1,49 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
+import controller.CPrincipalAdd;
+import controller.CPrincipalUpdate;
+import controller.CPrincipalDelete;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author haros
  */
 public class principal extends javax.swing.JFrame {
-
+    private CPrincipalAdd controller;
+    private CPrincipalUpdate controllerEdit;
+    private CPrincipalDelete controllerDelete;
+    private int selectedPrincipalId = -1;
     /**
      * Creates new form principal
      */
     public principal() {
         initComponents();
+        controller = new CPrincipalAdd();
+        controllerEdit = new CPrincipalUpdate();
+        controllerDelete = new CPrincipalDelete();
+        refreshTable();
+        
+        p_table.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int row = p_table.getSelectedRow();
+                if (row >= 0) {
+                    selectedPrincipalId = (int) p_table.getValueAt(row, 0);
+                    p_fname_txt.setText((String) p_table.getValueAt(row, 1));
+                    p_address_txt.setText((String) p_table.getValueAt(row, 2));
+                    p_dob_txt.setDate((Date) p_table.getValueAt(row, 3));
+                    p_email_txt.setText((String) p_table.getValueAt(row, 4));
+                    p_tel_txt.setText(String.valueOf(p_table.getValueAt(row, 5)));
+                    p_combo.setSelectedItem((String) p_table.getValueAt(row, 6));
+                }
+            }
+        });
+    }
+    
+    private void refreshTable(){
+        p_table.setModel(controller.getPrincipalTableModel());
     }
 
     /**
@@ -37,7 +66,7 @@ public class principal extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         p_fname_txt = new javax.swing.JTextField();
         p_address_txt = new javax.swing.JTextField();
-        p_dob = new com.toedter.calendar.JDateChooser();
+        p_dob_txt = new com.toedter.calendar.JDateChooser();
         p_email_txt = new javax.swing.JTextField();
         p_tel_txt = new javax.swing.JTextField();
         p_combo = new javax.swing.JComboBox<>();
@@ -94,7 +123,7 @@ public class principal extends javax.swing.JFrame {
 
         p_address_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jPanel2.add(p_address_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 180, -1));
-        jPanel2.add(p_dob, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 180, -1));
+        jPanel2.add(p_dob_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 180, -1));
 
         p_email_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jPanel2.add(p_email_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 180, -1));
@@ -106,23 +135,40 @@ public class principal extends javax.swing.JFrame {
         p_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Present", "Past" }));
         jPanel2.add(p_combo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 180, -1));
 
-        btn_p_add.setBackground(new java.awt.Color(0, 255, 51));
+        btn_p_add.setBackground(new java.awt.Color(0, 0, 204));
         btn_p_add.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_p_add.setForeground(new java.awt.Color(255, 255, 255));
         btn_p_add.setText("ADD");
         btn_p_add.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_p_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_p_addActionPerformed(evt);
+            }
+        });
         jPanel2.add(btn_p_add, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 90, 30));
 
-        btn_p_update.setBackground(new java.awt.Color(255, 255, 0));
+        btn_p_update.setBackground(new java.awt.Color(153, 153, 0));
         btn_p_update.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_p_update.setForeground(new java.awt.Color(255, 255, 255));
         btn_p_update.setText("UPDATE");
         btn_p_update.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_p_update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_p_updateActionPerformed(evt);
+            }
+        });
         jPanel2.add(btn_p_update, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 90, 30));
 
-        btn_p_delete.setBackground(new java.awt.Color(255, 0, 51));
+        btn_p_delete.setBackground(new java.awt.Color(204, 0, 51));
         btn_p_delete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btn_p_delete.setForeground(new java.awt.Color(255, 255, 255));
         btn_p_delete.setText("DELETE");
         btn_p_delete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_p_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_p_deleteActionPerformed(evt);
+            }
+        });
         jPanel2.add(btn_p_delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 380, 90, 30));
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -136,31 +182,136 @@ public class principal extends javax.swing.JFrame {
         btn_p_back.setForeground(new java.awt.Color(255, 255, 255));
         btn_p_back.setText("Back");
         btn_p_back.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_p_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_p_backActionPerformed(evt);
+            }
+        });
         jPanel4.add(btn_p_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, 100, 30));
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 360, 60));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 540));
 
+        p_table.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         p_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Full Name", "Address", "DOB", "Email", "Telephone", "Status"
+                "Principal ID", "Full Name", "Address", "DOB", "Email", "Telephone", "Status"
             }
         ));
         jScrollPane1.setViewportView(p_table);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 580, 520));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 750, 520));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 540));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_p_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_p_backActionPerformed
+        new dashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_p_backActionPerformed
+
+    private void btn_p_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_p_addActionPerformed
+        try{
+            String p_fname = p_fname_txt.getText();
+            String p_address = p_address_txt.getText();
+            java.util.Date p_dob = p_dob_txt.getDate();
+            String p_email = p_email_txt.getText();
+            int p_tel = Integer.parseInt(p_tel_txt.getText());
+            String p_status = p_combo.getSelectedItem().toString();
+        
+            if(p_fname.isEmpty() || !isValidName(p_fname)){
+                JOptionPane.showMessageDialog(null, "Invalid full name. Only letters and spaces are allowed, and it cannot be empty.");
+                return;
+            }else if(p_address.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Address cannot be empty.");
+                return;
+            }else if(p_email.isEmpty() || !isValidEmail(p_email)){
+                JOptionPane.showMessageDialog(null, "Invalid email format.");
+                return;
+            }
+            
+            CPrincipalAdd cp = new CPrincipalAdd();
+            cp.addPrincipal(p_fname,p_address,p_dob,p_email,p_tel,p_status);
+            
+            // Clear the fields after adding
+            clearFields();
+            
+            // Refresh the table with updated data
+            refreshTable();
+            
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btn_p_addActionPerformed
+
+    private void btn_p_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_p_updateActionPerformed
+        try{
+            if(selectedPrincipalId == -1){
+                JOptionPane.showMessageDialog(null, "Please select a principal to update.");
+                return;
+            }
+            
+            String p_fname = p_fname_txt.getText();
+            String p_address = p_address_txt.getText();
+            java.util.Date p_dob = p_dob_txt.getDate();
+            String p_email = p_email_txt.getText();
+            int p_tel = Integer.parseInt(p_tel_txt.getText());
+            String p_status = p_combo.getSelectedItem().toString();
+            
+            if (p_fname.isEmpty() || !isValidName(p_fname)) {
+                JOptionPane.showMessageDialog(null, "Invalid full name. Only letters and spaces are allowed, and it cannot be empty.");
+                return;
+            } else if (p_address.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Address cannot be empty.");
+                return;
+            } else if (!isValidEmail(p_email)) {
+                JOptionPane.showMessageDialog(null, "Invalid email format.");
+                return;
+            }
+            
+            controllerEdit.updatePrincipal(selectedPrincipalId, p_fname, p_address, p_dob, p_email, p_tel, p_status);
+            
+            clearFields();
+            
+            refreshTable();
+            
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btn_p_updateActionPerformed
+
+    private void btn_p_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_p_deleteActionPerformed
+        try{
+            if(selectedPrincipalId == -1){
+                JOptionPane.showMessageDialog(null, "Please select a principal to delete.");
+                return;
+            }
+            
+            int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this principal?");
+            
+            if(confirmation == JOptionPane.YES_OPTION){
+                controllerDelete.deletePrincipal(selectedPrincipalId);
+                
+                clearFields();
+                
+                refreshTable();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btn_p_deleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,11 +366,29 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField p_address_txt;
     private javax.swing.JComboBox<String> p_combo;
-    private com.toedter.calendar.JDateChooser p_dob;
+    private com.toedter.calendar.JDateChooser p_dob_txt;
     private javax.swing.JTextField p_email_txt;
     private javax.swing.JTextField p_fname_txt;
     private javax.swing.JTable p_table;
     private javax.swing.JTextField p_tel_txt;
     private com.qt.datapicker.TestDayPicker testDayPicker1;
     // End of variables declaration//GEN-END:variables
+
+    private boolean isValidName(String p_fname) {
+        return p_fname.matches("[a-zA-Z\\s]+");
+    }
+
+    private boolean isValidEmail(String p_email) {
+        return p_email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
+    }
+
+    private void clearFields() {
+        p_fname_txt.setText("");
+        p_address_txt.setText("");
+        p_dob_txt.setDate(null);
+        p_email_txt.setText("");
+        p_tel_txt.setText("");
+        p_combo.setSelectedItem(0);
+    }
+
 }

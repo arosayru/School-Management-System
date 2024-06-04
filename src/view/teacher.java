@@ -1,20 +1,56 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
+import controller.CTeacherAdd;
+import controller.CTeacherUpdate;
+import controller.CTeacherDelete;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author haros
  */
 public class teacher extends javax.swing.JFrame {
-
+    private CTeacherAdd controller;
+    private CTeacherUpdate controllerEdit;
+    private CTeacherDelete controllerDelete;
+    private int selectedTeacherId = -1;
     /**
      * Creates new form teacher
      */
     public teacher() {
         initComponents();
+        controller = new CTeacherAdd();
+        controllerEdit = new CTeacherUpdate();
+        controllerDelete = new CTeacherDelete();
+        refreshTable("All");
+        
+        t_table.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int row = t_table.getSelectedRow();
+                if(row >= 0){
+                    selectedTeacherId = (int) t_table.getValueAt(row, 0);
+                    t_fname_txt.setText((String) t_table.getValueAt(row, 1));
+                    t_address_txt.setText((String) t_table.getValueAt(row, 2));
+                    t_dob_txt.setDate((Date) t_table.getValueAt(row, 3));
+                    t_email_txt.setText((String) t_table.getValueAt(row, 4));
+                    t_tel_txt.setText(String.valueOf(t_table.getValueAt(row, 5)));
+                    t_subject_combo.setSelectedItem((String) t_table.getValueAt(row, 6));
+                    t_section_combo.setSelectedItem((String) t_table.getValueAt(row, 7));
+                }
+            }
+        });
+        
+        t_combo_select_section.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                t_combo_select_sectionActionPerformed(evt);
+            }
+        });
+    }
+    
+    private void refreshTable(String selectedClass){
+        t_table.setModel(controller.getTeacherTableModel(selectedClass));
     }
 
     /**
@@ -37,9 +73,9 @@ public class teacher extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         t_fname_txt = new javax.swing.JTextField();
         t_address_txt = new javax.swing.JTextField();
-        t_dob = new com.toedter.calendar.JDateChooser();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        t_dob_txt = new com.toedter.calendar.JDateChooser();
+        t_email_txt = new javax.swing.JTextField();
+        t_tel_txt = new javax.swing.JTextField();
         t_subject_combo = new javax.swing.JComboBox<>();
         t_section_combo = new javax.swing.JComboBox<>();
         btn_t_add = new javax.swing.JButton();
@@ -49,6 +85,8 @@ public class teacher extends javax.swing.JFrame {
         btn_t_back = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         t_table = new javax.swing.JTable();
+        t_combo_select_section = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -56,7 +94,7 @@ public class teacher extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(56, 159, 214));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 0));
+        jPanel2.setBackground(new java.awt.Color(217, 204, 0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -92,13 +130,13 @@ public class teacher extends javax.swing.JFrame {
 
         t_address_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jPanel2.add(t_address_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 180, -1));
-        jPanel2.add(t_dob, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 180, 30));
+        jPanel2.add(t_dob_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 180, 30));
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jPanel2.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 180, -1));
+        t_email_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel2.add(t_email_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 180, -1));
 
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jPanel2.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 180, -1));
+        t_tel_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel2.add(t_tel_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 180, -1));
 
         t_subject_combo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         t_subject_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mathematics", "Science", "Sinhala", "English", "Music", "ICT", "History" }));
@@ -108,26 +146,43 @@ public class teacher extends javax.swing.JFrame {
         t_section_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Primary", "Junior", "Senior" }));
         jPanel2.add(t_section_combo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, 180, -1));
 
-        btn_t_add.setBackground(new java.awt.Color(51, 255, 0));
+        btn_t_add.setBackground(new java.awt.Color(0, 0, 204));
         btn_t_add.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_t_add.setForeground(new java.awt.Color(255, 255, 255));
         btn_t_add.setText("ADD");
         btn_t_add.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_t_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_t_addActionPerformed(evt);
+            }
+        });
         jPanel2.add(btn_t_add, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 90, 30));
 
-        btn_t_update.setBackground(new java.awt.Color(255, 255, 0));
+        btn_t_update.setBackground(new java.awt.Color(153, 153, 0));
         btn_t_update.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_t_update.setForeground(new java.awt.Color(255, 255, 255));
         btn_t_update.setText("UPDATE");
         btn_t_update.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_t_update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_t_updateActionPerformed(evt);
+            }
+        });
         jPanel2.add(btn_t_update, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 420, 90, 30));
 
-        btn_t_delete.setBackground(new java.awt.Color(255, 0, 51));
+        btn_t_delete.setBackground(new java.awt.Color(204, 0, 51));
         btn_t_delete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btn_t_delete.setForeground(new java.awt.Color(255, 255, 255));
         btn_t_delete.setText("DELETE");
         btn_t_delete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_t_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_t_deleteActionPerformed(evt);
+            }
+        });
         jPanel2.add(btn_t_delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 420, 90, 30));
 
-        jPanel3.setBackground(new java.awt.Color(153, 153, 0));
+        jPanel3.setBackground(new java.awt.Color(153, 160, 30));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_t_back.setBackground(new java.awt.Color(153, 153, 153));
@@ -135,31 +190,167 @@ public class teacher extends javax.swing.JFrame {
         btn_t_back.setForeground(new java.awt.Color(255, 255, 255));
         btn_t_back.setText("Back");
         btn_t_back.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_t_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_t_backActionPerformed(evt);
+            }
+        });
         jPanel3.add(btn_t_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, 100, 30));
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 360, 60));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 540));
 
+        t_table.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         t_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Full Name", "Address", "DOB", "Email", "Telephone", "Subject", "Section"
+                "Teacher ID", "Full Name", "Address", "DOB", "Email", "Telephone", "Subject", "Section"
             }
         ));
         jScrollPane1.setViewportView(t_table);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 6, 620, 522));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 68, 790, 460));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 540));
+        t_combo_select_section.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        t_combo_select_section.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Primary", "Junior", "Senior" }));
+        t_combo_select_section.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                t_combo_select_sectionActionPerformed(evt);
+            }
+        });
+        jPanel1.add(t_combo_select_section, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 20, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Select section");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 25, -1, 20));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_t_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_t_backActionPerformed
+        new dashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_t_backActionPerformed
+
+    private void btn_t_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_t_addActionPerformed
+        try{
+            String t_fname = t_fname_txt.getText();
+            String t_address = t_address_txt.getText();
+            java.util.Date t_dob = t_dob_txt.getDate();
+            String t_email = t_email_txt.getText();
+            int t_tel = Integer.parseInt(t_tel_txt.getText());
+            String t_subject = t_subject_combo.getSelectedItem().toString();
+            String t_section = t_section_combo.getSelectedItem().toString();
+            
+            if(t_fname.isEmpty() || !isValidName(t_fname)){
+                JOptionPane.showMessageDialog(null, "Invalid full name. Only letters and spaces are allowed, and it cannot be empty.");
+                return;
+            }else if(t_address.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Address cannot be empty.");
+                return;
+            }else if(t_email.isEmpty() || !isValidEmail(t_email)){
+                JOptionPane.showMessageDialog(null, "Invalid email format.");
+                return;
+            }else if(t_subject.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Subject cannot be empty.");
+                return;
+            }else if(t_section.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Section cannot be empty.");
+                return;
+            }
+            
+            CTeacherAdd ct = new CTeacherAdd();
+            ct.addTeacher(t_fname,t_address,t_dob,t_email,t_tel,t_subject,t_section);
+            
+            // Clear the fields after adding
+            clearFields();
+            
+            // Refresh the table with updated data
+            refreshTable("All");
+            
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btn_t_addActionPerformed
+
+    private void btn_t_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_t_updateActionPerformed
+        try{
+            if(selectedTeacherId == -1){
+                JOptionPane.showMessageDialog(null, "Please select a teacher to update.");
+                return;
+            }
+            
+             String t_fname = t_fname_txt.getText();
+             String t_address = t_address_txt.getText();
+             java.util.Date t_dob = t_dob_txt.getDate();
+             String t_email = t_email_txt.getText();
+             int t_tel = Integer.parseInt(t_tel_txt.getText());
+             String t_subject = t_subject_combo.getSelectedItem().toString();
+             String t_section = t_section_combo.getSelectedItem().toString();
+             
+             if(t_fname.isEmpty() || !isValidName(t_fname)){
+                JOptionPane.showMessageDialog(null, "Invalid full name. Only letters and spaces are allowed, and it cannot be empty.");
+                return;
+            }else if(t_address.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Address cannot be empty.");
+                return;
+            }else if(t_email.isEmpty() || !isValidEmail(t_email)){
+                JOptionPane.showMessageDialog(null, "Invalid email format.");
+                return;
+            }else if(t_subject.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Subject cannot be empty.");
+                return;
+            }else if(t_section.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Section cannot be empty.");
+                return;
+            }
+             
+            controllerEdit.updateTeacher(selectedTeacherId, t_fname, t_address, t_dob, t_email, t_tel, t_subject, t_section);
+            
+            clearFields();
+            
+            refreshTable("All");
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btn_t_updateActionPerformed
+
+    private void btn_t_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_t_deleteActionPerformed
+        try{
+            if(selectedTeacherId == -1){
+                JOptionPane.showMessageDialog(null, "Please select a teacher to delete.");
+                return;
+            }
+            int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this teacher?");
+            
+            if(confirmation == JOptionPane.YES_OPTION){
+                controllerDelete.deleteTeacher(selectedTeacherId);
+                
+                clearFields();
+                
+                refreshTable("All");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btn_t_deleteActionPerformed
+
+    private void t_combo_select_sectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_combo_select_sectionActionPerformed
+        String selectedClass = t_combo_select_section.getSelectedItem().toString();
+        refreshTable(selectedClass);
+    }//GEN-LAST:event_t_combo_select_sectionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,17 +399,37 @@ public class teacher extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField t_address_txt;
-    private com.toedter.calendar.JDateChooser t_dob;
+    private javax.swing.JComboBox<String> t_combo_select_section;
+    private com.toedter.calendar.JDateChooser t_dob_txt;
+    private javax.swing.JTextField t_email_txt;
     private javax.swing.JTextField t_fname_txt;
     private javax.swing.JComboBox<String> t_section_combo;
     private javax.swing.JComboBox<String> t_subject_combo;
     private javax.swing.JTable t_table;
+    private javax.swing.JTextField t_tel_txt;
     // End of variables declaration//GEN-END:variables
+
+    private boolean isValidName(String t_fname) {
+        return t_fname.matches("[a-zA-Z\\s]+");
+    }
+    
+    private boolean isValidEmail(String t_email) {
+        return t_email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
+    }
+
+    private void clearFields() {
+        t_fname_txt.setText("");
+        t_address_txt.setText("");
+        t_dob_txt.setDate(null);
+        t_email_txt.setText("");
+        t_tel_txt.setText("");
+        t_subject_combo.setSelectedItem(0);
+        t_section_combo.setSelectedItem(0);
+    }
 }

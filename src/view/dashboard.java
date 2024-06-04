@@ -51,48 +51,91 @@ public class dashboard extends javax.swing.JFrame {
         btn_logout.setForeground(new java.awt.Color(255, 255, 255));
         btn_logout.setText("Logout");
         btn_logout.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel2.add(btn_logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 256, 100, 30));
+        btn_logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_logoutActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btn_logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 120, 30));
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel2.setText("Student");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 22)); // NOI18N
+        jLabel2.setText("School");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 22)); // NOI18N
         jLabel3.setText("Management");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 60, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 22)); // NOI18N
         jLabel4.setText("System");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 300));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 170, 410));
 
-        jLabel1.setFont(new java.awt.Font("Sylfaen", 3, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Sylfaen", 3, 48)); // NOI18N
         jLabel1.setText("Sumedha College Gampaha");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 440, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 590, -1));
 
-        btn_principal.setBackground(new java.awt.Color(0, 255, 0));
-        btn_principal.setFont(new java.awt.Font("Sitka Display", 1, 20)); // NOI18N
+        btn_principal.setBackground(new java.awt.Color(0, 0, 153));
+        btn_principal.setFont(new java.awt.Font("Sitka Display", 1, 28)); // NOI18N
+        btn_principal.setForeground(new java.awt.Color(255, 255, 255));
         btn_principal.setText("Principal");
-        btn_principal.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(btn_principal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 120, 70));
+        btn_principal.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_principal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_principalActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_principal, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 160, 90));
 
-        btn_teacher.setBackground(new java.awt.Color(255, 255, 0));
-        btn_teacher.setFont(new java.awt.Font("Sitka Display", 1, 20)); // NOI18N
+        btn_teacher.setBackground(new java.awt.Color(0, 0, 153));
+        btn_teacher.setFont(new java.awt.Font("Sitka Display", 1, 28)); // NOI18N
+        btn_teacher.setForeground(new java.awt.Color(255, 255, 255));
         btn_teacher.setText("Teacher");
-        btn_teacher.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(btn_teacher, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, 120, 70));
+        btn_teacher.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_teacher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_teacherActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_teacher, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 170, 160, 90));
 
-        btn_student.setBackground(new java.awt.Color(0, 255, 204));
-        btn_student.setFont(new java.awt.Font("Sitka Display", 1, 20)); // NOI18N
+        btn_student.setBackground(new java.awt.Color(0, 0, 153));
+        btn_student.setFont(new java.awt.Font("Sitka Display", 1, 28)); // NOI18N
+        btn_student.setForeground(new java.awt.Color(255, 255, 255));
         btn_student.setText("Student");
-        btn_student.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(btn_student, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 140, 120, 70));
+        btn_student.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_student.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_studentActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_student, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 170, 160, 90));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 300));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 410));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
+        new login().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_logoutActionPerformed
+
+    private void btn_principalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_principalActionPerformed
+        new principal().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_principalActionPerformed
+
+    private void btn_teacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_teacherActionPerformed
+        new teacher().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_teacherActionPerformed
+
+    private void btn_studentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_studentActionPerformed
+        new student().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_studentActionPerformed
 
     /**
      * @param args the command line arguments

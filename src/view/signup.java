@@ -1,8 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
+
+import javax.swing.JOptionPane;
+import controller.Csignup;
 
 /**
  *
@@ -26,7 +25,6 @@ public class signup extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -39,17 +37,16 @@ public class signup extends javax.swing.JFrame {
         email_txt = new javax.swing.JTextField();
         telno_txt = new javax.swing.JTextField();
         username_txt = new javax.swing.JTextField();
-        pswd_txt = new javax.swing.JTextField();
-        con_pswd_txt = new javax.swing.JTextField();
-        btn_register = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        btn_register = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        role_combo = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        con_pswd_txt = new javax.swing.JPasswordField();
+        pswd_txt = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setFont(new java.awt.Font("Stencil", 1, 36)); // NOI18N
-        jLabel1.setText("SIGNUP");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 23, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Full Name");
@@ -94,24 +91,81 @@ public class signup extends javax.swing.JFrame {
         username_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         getContentPane().add(username_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, 190, -1));
 
-        pswd_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        getContentPane().add(pswd_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, 190, -1));
-
-        con_pswd_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        getContentPane().add(con_pswd_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 190, -1));
+        jPanel1.setBackground(new java.awt.Color(56, 159, 214));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_register.setBackground(new java.awt.Color(153, 153, 153));
         btn_register.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         btn_register.setForeground(new java.awt.Color(255, 255, 255));
         btn_register.setText("Register");
         btn_register.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(btn_register, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 450, 100, 35));
+        btn_register.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_registerActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_register, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 510, 100, 35));
 
-        jPanel1.setBackground(new java.awt.Color(56, 159, 214));
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 530));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel9.setText("Role");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 450, -1, -1));
+
+        role_combo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        role_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "Principal", "Teacher" }));
+        jPanel1.add(role_combo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 448, 190, 30));
+
+        jLabel1.setFont(new java.awt.Font("Stencil", 1, 36)); // NOI18N
+        jLabel1.setText("SIGNUP");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
+
+        con_pswd_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel1.add(con_pswd_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 190, -1));
+
+        pswd_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel1.add(pswd_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, 190, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 570));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registerActionPerformed
+        try{
+            String user_fname = fname_txt.getText();
+            String user_address = address_txt.getText();
+            String user_email = email_txt.getText();
+            int user_tel = Integer.parseInt(telno_txt.getText());
+            String username = username_txt.getText();
+            char[] passwordArray = pswd_txt.getPassword();
+            String password = new String(passwordArray);
+            char[] conpasswordArray = con_pswd_txt.getPassword();
+            String con_password = new String(conpasswordArray);
+            String role = (String)role_combo.getSelectedItem();
+            
+            if(!isValidName(user_fname)){
+                JOptionPane.showMessageDialog(null, "Invalid full name. Only letters and spaces are allowed, and it cannot be empty.");
+                return;
+            }else if(user_address == ""){
+                JOptionPane.showMessageDialog(null, "Address cannot be empty");
+                return;
+            }else if(!isValidEmail(user_email)){
+                JOptionPane.showMessageDialog(null, "Invalid telephone number. Only digits and optional leading + are allowed.");
+                return;
+            }else if(!password.equals(con_password)){
+                JOptionPane.showMessageDialog(null, "Passwords do not match!");
+                return;
+            }
+            
+            Csignup member = new Csignup();
+            member.registerUser(user_fname,user_address,user_email,user_tel,username,password,con_password,role);
+            
+            dispose();
+            new login().setVisible(true);
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btn_registerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,7 +205,7 @@ public class signup extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField address_txt;
     private javax.swing.JButton btn_register;
-    private javax.swing.JTextField con_pswd_txt;
+    private javax.swing.JPasswordField con_pswd_txt;
     private javax.swing.JTextField email_txt;
     private javax.swing.JTextField fname_txt;
     private javax.swing.JLabel jLabel1;
@@ -162,9 +216,20 @@ public class signup extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField pswd_txt;
+    private javax.swing.JPasswordField pswd_txt;
+    private javax.swing.JComboBox<String> role_combo;
     private javax.swing.JTextField telno_txt;
     private javax.swing.JTextField username_txt;
     // End of variables declaration//GEN-END:variables
+
+    private boolean isValidName(String user_fname) {
+        return user_fname != null && user_fname.matches("[a-zA-Z\\s]+");
+    }
+
+    private boolean isValidEmail(String user_email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        return user_email != null && user_email.matches(emailRegex);
+    }
 }

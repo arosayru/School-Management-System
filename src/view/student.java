@@ -1,20 +1,55 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
+import controller.CStudentAdd;
+import controller.CStudentUpdate;
+import controller.CStudentDelete;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author haros
  */
 public class student extends javax.swing.JFrame {
-
+    private CStudentAdd controller;
+    private CStudentUpdate controllerEdit;
+    private CStudentDelete controllerDelete;
+    private int selectedStudentId = -1;
     /**
      * Creates new form student
      */
     public student() {
         initComponents();
+        controller = new CStudentAdd();
+        controllerEdit = new CStudentUpdate();
+        controllerDelete = new CStudentDelete();
+        refreshTable("All");
+        
+        s_table.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int row = s_table.getSelectedRow();
+                if (row >= 0) {
+                    selectedStudentId = (int) s_table.getValueAt(row, 0);
+                    s_fname_txt.setText((String) s_table.getValueAt(row, 1));
+                    s_address_txt.setText((String) s_table.getValueAt(row, 2));
+                    s_dob_txt.setDate((Date) s_table.getValueAt(row, 3));
+                    s_tel_txt.setText(String.valueOf(s_table.getValueAt(row, 4)));
+                    s_parent_name_txt.setText((String) s_table.getValueAt(row, 5));
+                    s_class_combo.setSelectedItem((String) s_table.getValueAt(row, 6));
+                }
+            }
+        });
+        
+        s_combo_select_class.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s_combo_select_classActionPerformed(evt);
+            }
+        });
+    }
+    
+    private void refreshTable(String selectedClass){
+        s_table.setModel(controller.getStudentTableModel(selectedClass));
     }
 
     /**
@@ -34,11 +69,11 @@ public class student extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        s_fname = new javax.swing.JTextField();
-        s_address = new javax.swing.JTextField();
-        s_tel = new javax.swing.JTextField();
-        s_parent_name = new javax.swing.JTextField();
-        s_dob = new com.toedter.calendar.JDateChooser();
+        s_fname_txt = new javax.swing.JTextField();
+        s_address_txt = new javax.swing.JTextField();
+        s_tel_txt = new javax.swing.JTextField();
+        s_parent_name_txt = new javax.swing.JTextField();
+        s_dob_txt = new com.toedter.calendar.JDateChooser();
         s_class_combo = new javax.swing.JComboBox<>();
         btn_s_add = new javax.swing.JButton();
         btn_s_update = new javax.swing.JButton();
@@ -48,6 +83,8 @@ public class student extends javax.swing.JFrame {
         btn_s_back = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         s_table = new javax.swing.JTable();
+        s_combo_select_class = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -88,36 +125,57 @@ public class student extends javax.swing.JFrame {
         jLabel6.setText("Class");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 310, -1, -1));
 
-        s_fname.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jPanel2.add(s_fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 190, -1));
+        s_fname_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel2.add(s_fname_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 190, -1));
 
-        s_address.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jPanel2.add(s_address, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 190, -1));
+        s_address_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel2.add(s_address_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 190, -1));
 
-        s_tel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jPanel2.add(s_tel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 190, -1));
+        s_tel_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel2.add(s_tel_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 190, -1));
 
-        s_parent_name.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jPanel2.add(s_parent_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 190, -1));
-        jPanel2.add(s_dob, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 190, -1));
+        s_parent_name_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel2.add(s_parent_name_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 190, -1));
+        jPanel2.add(s_dob_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 190, -1));
 
         s_class_combo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         s_class_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1A", "1B", "1C", "2A", "2B", "2C", "3A", "3B", "3C", "4A", "4B", "5A", "5B", "6A", "6B", "7A", "7B", "8A", "8B", "9A", "9B", "10", "11", "12A", "12B", "13A", "13B" }));
         jPanel2.add(s_class_combo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 190, -1));
 
-        btn_s_add.setBackground(new java.awt.Color(0, 255, 0));
+        btn_s_add.setBackground(new java.awt.Color(0, 0, 204));
         btn_s_add.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_s_add.setForeground(new java.awt.Color(255, 255, 255));
         btn_s_add.setText("ADD");
+        btn_s_add.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_s_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_s_addActionPerformed(evt);
+            }
+        });
         jPanel2.add(btn_s_add, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 90, 30));
 
-        btn_s_update.setBackground(new java.awt.Color(255, 255, 0));
+        btn_s_update.setBackground(new java.awt.Color(153, 153, 0));
         btn_s_update.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_s_update.setForeground(new java.awt.Color(255, 255, 255));
         btn_s_update.setText("UPDATE");
+        btn_s_update.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_s_update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_s_updateActionPerformed(evt);
+            }
+        });
         jPanel2.add(btn_s_update, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, 90, 30));
 
-        btn_s_delete.setBackground(new java.awt.Color(255, 0, 51));
+        btn_s_delete.setBackground(new java.awt.Color(204, 0, 51));
         btn_s_delete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_s_delete.setForeground(new java.awt.Color(255, 255, 255));
         btn_s_delete.setText("DELETE");
+        btn_s_delete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_s_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_s_deleteActionPerformed(evt);
+            }
+        });
         jPanel2.add(btn_s_delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 390, 90, 30));
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -131,31 +189,160 @@ public class student extends javax.swing.JFrame {
         btn_s_back.setForeground(new java.awt.Color(255, 255, 255));
         btn_s_back.setText("Back");
         btn_s_back.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_s_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_s_backActionPerformed(evt);
+            }
+        });
         jPanel4.add(btn_s_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 100, 30));
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 360, 60));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 540));
 
+        s_table.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         s_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Full Name", "Address", "DOB", "Telphone No", "Parent's Name", "Class"
+                "Student ID", "Full Name", "Address", "DOB", "Telphone", "Parent's Name", "Class"
             }
         ));
         jScrollPane1.setViewportView(s_table);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 610, 520));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, 820, 460));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 540));
+        s_combo_select_class.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        s_combo_select_class.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "1A", "1B", "1C", "2A", "2B", "2C", "3A", "3B", "3C", "4A", "4B", "5A", "5B", "6A", "6B", "7A", "7B", "8A", "8B", "9A", "9B", "10", "11", "12A", "12B", "13A", "13B" }));
+        s_combo_select_class.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s_combo_select_classActionPerformed(evt);
+            }
+        });
+        jPanel1.add(s_combo_select_class, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 20, 100, -1));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Select class");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 25, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_s_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_s_addActionPerformed
+        try{
+            String s_fname = s_fname_txt.getText();
+            String s_address = s_address_txt.getText();
+            java.util.Date s_dob = s_dob_txt.getDate();
+            int s_tel = Integer.parseInt(s_tel_txt.getText());
+            String s_parent_name = s_parent_name_txt.getText();
+            String s_class = s_class_combo.getSelectedItem().toString();
+            
+            if(s_fname.isEmpty() || !isValidName(s_fname)){
+                JOptionPane.showMessageDialog(null, "Invalid full name. Only letters and spaces are allowed, and it cannot be empty.");
+                return;
+            }else if(s_address.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Address cannot be empty.");
+                return;
+            }else if(s_parent_name.isEmpty() || !isValiPName(s_parent_name)){
+                JOptionPane.showMessageDialog(null, "Invalid name format.Only letters and spaces are allowed, and it cannot be empty.");
+                return;
+            }else if(s_class.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Class cannot be empty.");
+                return;
+            }
+            
+            CStudentAdd cs = new CStudentAdd();
+            cs.addStudent(s_fname,s_address,s_dob,s_tel,s_parent_name,s_class);
+            
+            // Clear the fields after adding
+            clearFields();
+            
+            // Refresh the table with updated data
+            refreshTable("All");
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btn_s_addActionPerformed
+
+    private void btn_s_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_s_backActionPerformed
+        new dashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_s_backActionPerformed
+
+    private void btn_s_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_s_updateActionPerformed
+        try{
+            if(selectedStudentId == -1){
+                JOptionPane.showMessageDialog(null, "Please select a student to update.");
+                return;
+            }
+            
+            String s_fname = s_fname_txt.getText();
+            String s_address = s_address_txt.getText();
+            java.util.Date s_dob = s_dob_txt.getDate();
+            int s_tel = Integer.parseInt(s_tel_txt.getText());
+            String s_parent_name = s_parent_name_txt.getText();
+            String s_class = s_class_combo.getSelectedItem().toString();
+            
+            if(s_fname.isEmpty() || !isValidName(s_fname)){
+                JOptionPane.showMessageDialog(null, "Invalid full name. Only letters and spaces are allowed, and it cannot be empty.");
+                return;
+            }else if(s_address.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Address cannot be empty.");
+                return;
+            }else if(s_parent_name.isEmpty() || !isValiPName(s_parent_name)){
+                JOptionPane.showMessageDialog(null, "Invalid name format.Only letters and spaces are allowed, and it cannot be empty.");
+                return;
+            }else if(s_class.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Class cannot be empty.");
+                return;
+            }
+            
+            controllerEdit.updateStudent(selectedStudentId, s_fname, s_address, s_dob, s_tel, s_parent_name, s_class);
+            
+            clearFields();
+            
+            refreshTable("All");
+            
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btn_s_updateActionPerformed
+
+    private void btn_s_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_s_deleteActionPerformed
+        try{
+            if(selectedStudentId == -1){
+                JOptionPane.showMessageDialog(null, "Please select a student to delete.");
+                return;
+            }
+            
+            int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this student?");
+            
+            if(confirmation == JOptionPane.YES_OPTION){
+                controllerDelete.deleteStudent(selectedStudentId);
+                
+                clearFields();
+                
+                refreshTable("All");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btn_s_deleteActionPerformed
+
+    private void s_combo_select_classActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_combo_select_classActionPerformed
+        String selectedClass = s_combo_select_class.getSelectedItem().toString();
+        refreshTable(selectedClass);
+    }//GEN-LAST:event_s_combo_select_classActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,17 +390,36 @@ public class student extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField s_address;
+    private javax.swing.JTextField s_address_txt;
     private javax.swing.JComboBox<String> s_class_combo;
-    private com.toedter.calendar.JDateChooser s_dob;
-    private javax.swing.JTextField s_fname;
-    private javax.swing.JTextField s_parent_name;
+    private javax.swing.JComboBox<String> s_combo_select_class;
+    private com.toedter.calendar.JDateChooser s_dob_txt;
+    private javax.swing.JTextField s_fname_txt;
+    private javax.swing.JTextField s_parent_name_txt;
     private javax.swing.JTable s_table;
-    private javax.swing.JTextField s_tel;
+    private javax.swing.JTextField s_tel_txt;
     // End of variables declaration//GEN-END:variables
+
+    private boolean isValidName(String s_fname) {
+        return s_fname.matches("[a-zA-Z\\s]+");
+    }
+
+    private boolean isValiPName(String s_parent_name) {
+        return s_parent_name.matches("[a-zA-Z\\s]+");
+    }
+    
+    private void clearFields() {
+        s_fname_txt.setText("");
+        s_address_txt.setText("");
+        s_dob_txt.setDate(null);
+        s_tel_txt.setText("");
+        s_parent_name_txt.setText("");
+        s_class_combo.setSelectedItem(0);
+    }
 }

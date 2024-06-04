@@ -1,8 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
+import controller.Clogin;
+import javax.swing.JOptionPane;
+import model.Mlogin;
 
 /**
  *
@@ -26,56 +25,127 @@ public class login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        username_txt = new javax.swing.JTextField();
-        pswd_txt = new javax.swing.JTextField();
         btn_login = new javax.swing.JButton();
         btn_signup = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        username_txt = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        pswd_txt = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(56, 159, 214));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel1.setFont(new java.awt.Font("Stencil", 1, 36)); // NOI18N
         jLabel1.setText("LOGIN");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 110, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, 110, -1));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel2.setText("username");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel3.setText("password");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, -1, -1));
 
-        username_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        getContentPane().add(username_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 220, -1));
-
-        pswd_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        getContentPane().add(pswd_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 220, -1));
-
-        btn_login.setBackground(new java.awt.Color(0, 0, 255));
+        btn_login.setBackground(new java.awt.Color(0, 0, 153));
         btn_login.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         btn_login.setForeground(new java.awt.Color(255, 255, 255));
         btn_login.setText("Login");
         btn_login.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 85, 33));
+        btn_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_loginActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 230, 85, 33));
 
         btn_signup.setBackground(new java.awt.Color(153, 153, 153));
         btn_signup.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         btn_signup.setForeground(new java.awt.Color(255, 255, 255));
         btn_signup.setText("SignUp");
         btn_signup.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(btn_signup, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 85, 33));
+        btn_signup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_signupActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_signup, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 230, 85, 33));
 
-        jPanel1.setBackground(new java.awt.Color(56, 159, 214));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 300));
+        username_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel1.add(username_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, 220, -1));
+
+        jPanel2.setBackground(new java.awt.Color(56, 132, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Welcome To");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Sumedha College");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Student Management");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("System");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Developed By DSE22.2P-003");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, -1, -1));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 300));
+
+        pswd_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel1.add(pswd_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 165, 220, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
+        String username = username_txt.getText();
+        char[] passwordArray = pswd_txt.getPassword();
+        String password = new String(passwordArray);
+        
+        Mlogin ml = new Mlogin();
+        Clogin cl = new Clogin(ml);
+        
+        boolean isValidUser = cl.login(username, password);
+        
+        if(isValidUser){
+            JOptionPane.showMessageDialog(this, "Login Sucessful");
+            new dashboard().setVisible(true);
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "Invalid username or password");
+        }
+    }//GEN-LAST:event_btn_loginActionPerformed
+
+    private void btn_signupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_signupActionPerformed
+        new signup().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_signupActionPerformed
 
     /**
      * @param args the command line arguments
@@ -118,8 +188,14 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField pswd_txt;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPasswordField pswd_txt;
     private javax.swing.JTextField username_txt;
     // End of variables declaration//GEN-END:variables
 }
